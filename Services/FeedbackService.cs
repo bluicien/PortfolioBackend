@@ -7,6 +7,11 @@ namespace PortfolioBackend.Services
     {
         private readonly ApplicationDbContext _context = context;
 
+        public Feedbacks? GetFeedbackById(int id)
+        {
+            return _context.Feedbacks.FirstOrDefault(feedback => feedback.FeedbackId == id);
+        }
+
         public IEnumerable<Feedbacks>? GetFeedbacks()
         {
             return _context.Feedbacks.ToList();
