@@ -1,0 +1,219 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "PortfolioBackend/1.0.0": {
+        "dependencies": {
+          "DotNetEnv": "3.1.1",
+          "Microsoft.AspNetCore.OpenApi": "10.0.0-preview.3.25172.1",
+          "Mscc.GenerativeAI": "2.6.0"
+        },
+        "runtime": {
+          "PortfolioBackend.dll": {}
+        }
+      },
+      "DotNetEnv/3.1.1": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "Sprache": "2.3.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/DotNetEnv.dll": {
+            "assemblyVersion": "3.1.1.0",
+            "fileVersion": "3.1.1.0"
+          }
+        }
+      },
+      "Humanizer.Core/2.14.1": {
+        "runtime": {
+          "lib/net6.0/Humanizer.dll": {
+            "assemblyVersion": "2.14.0.0",
+            "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "Json.More.Net/2.1.0": {
+        "runtime": {
+          "lib/net9.0/Json.More.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "JsonPointer.Net/5.1.0": {
+        "dependencies": {
+          "Humanizer.Core": "2.14.1",
+          "Json.More.Net": "2.1.0"
+        },
+        "runtime": {
+          "lib/net9.0/JsonPointer.Net.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.1.0.0"
+          }
+        }
+      },
+      "JsonSchema.Net/7.3.1": {
+        "dependencies": {
+          "JsonPointer.Net": "5.1.0"
+        },
+        "runtime": {
+          "lib/net8.0/JsonSchema.Net.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.3.1.0"
+          }
+        }
+      },
+      "JsonSchema.Net.Generation/5.0.0": {
+        "dependencies": {
+          "Humanizer.Core": "2.14.1",
+          "JsonSchema.Net": "7.3.1"
+        },
+        "runtime": {
+          "lib/net9.0/JsonSchema.Net.Generation.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.OpenApi/10.0.0-preview.3.25172.1": {
+        "dependencies": {
+          "Microsoft.OpenApi": "2.0.0-preview.11"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.17201"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "Microsoft.OpenApi/2.0.0-preview.11": {
+        "runtime": {
+          "lib/net8.0/Microsoft.OpenApi.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Mscc.GenerativeAI/2.6.0": {
+        "dependencies": {
+          "JsonSchema.Net.Generation": "5.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Mscc.GenerativeAI.dll": {
+            "assemblyVersion": "2.6.0.0",
+            "fileVersion": "2.6.0.0"
+          }
+        }
+      },
+      "NETStandard.Library/1.6.1": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "Sprache/2.3.1": {
+        "runtime": {
+          "lib/netstandard2.1/Sprache.dll": {
+            "assemblyVersion": "2.3.1.0",
+            "fileVersion": "2.3.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PortfolioBackend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DotNetEnv/3.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o4SqUVCq0pqHF/HYsZk6k22XGIVmvsDVo+Dy7l0ubq9uQ45JkXswrMRJmYvhGLXWFYF0M5OupMonytB+0zvpGQ==",
+      "path": "dotnetenv/3.1.1",
+      "hashPath": "dotnetenv.3.1.1.nupkg.sha512"
+    },
+    "Humanizer.Core/2.14.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
+      "path": "humanizer.core/2.14.1",
+      "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "Json.More.Net/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qtwsyAsL55y2vB2/sK4Pjg3ZyVzD5KKSpV3lOAMHlnjFfsjQ/86eHJfQT9aV1YysVXzF4+xyHOZbh7Iu3YQ7Lg==",
+      "path": "json.more.net/2.1.0",
+      "hashPath": "json.more.net.2.1.0.nupkg.sha512"
+    },
+    "JsonPointer.Net/5.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pqVAJGpGBkEWQTMrmuiw54HT/ou0bLr+wOWlqQCqYfAG3mGOF/j4JC3UIw8mf0CTpT5TwLttF3kCRXk+hnAD9g==",
+      "path": "jsonpointer.net/5.1.0",
+      "hashPath": "jsonpointer.net.5.1.0.nupkg.sha512"
+    },
+    "JsonSchema.Net/7.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6H/B3Wqyz1DqVxb0SVZzTfS8DSnvwuh/UCPa2OUB5GNepWP1ynIkWEmwWEJRG4c5BDwX3o4C5RtTcYCm+viYmQ==",
+      "path": "jsonschema.net/7.3.1",
+      "hashPath": "jsonschema.net.7.3.1.nupkg.sha512"
+    },
+    "JsonSchema.Net.Generation/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r17Nx9ZfTn8Ej39F0NMnOkCLdgof1OH//SfYhsxKLkcg2nXgjz0mzhkxJWsFmyck2L9Ankb/cnEkMJoAxnub3g==",
+      "path": "jsonschema.net.generation/5.0.0",
+      "hashPath": "jsonschema.net.generation.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.OpenApi/10.0.0-preview.3.25172.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o2A0jvacBI5pyXkGwe5wO09JkBvvUAAbjF/UeAzSvw7uZ1vDBo3QD++vK8BOewf3s8/YNSwsgVerWmSAG2XPeg==",
+      "path": "microsoft.aspnetcore.openapi/10.0.0-preview.3.25172.1",
+      "hashPath": "microsoft.aspnetcore.openapi.10.0.0-preview.3.25172.1.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.OpenApi/2.0.0-preview.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9Iw/y2GEKGeCCMovn2LMdnXW1G0/x7LTeO4lDYFgscw+ytEV+8Xj1Qqj1KH6TUNBqp+lc6oTfq8k7lVPn1MasA==",
+      "path": "microsoft.openapi/2.0.0-preview.11",
+      "hashPath": "microsoft.openapi.2.0.0-preview.11.nupkg.sha512"
+    },
+    "Mscc.GenerativeAI/2.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FrD5R/kobcb6VEHYGdhFBHT5yjppTLLjzYlRt44UGlQGoSzJrIuhtGZTlVizkzo5A3ClCbJngzUTxk6gfVW8RA==",
+      "path": "mscc.generativeai/2.6.0",
+      "hashPath": "mscc.generativeai.2.6.0.nupkg.sha512"
+    },
+    "NETStandard.Library/1.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
+      "path": "netstandard.library/1.6.1",
+      "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
+    },
+    "Sprache/2.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q+mXeiTxiUYG3lKYF6TS82/SyB4F2613Q1yXTMwg4jWGHEEVC3yrzHtNcI4B3qnDI0+eJsezGJ0V+cToUytHWw==",
+      "path": "sprache/2.3.1",
+      "hashPath": "sprache.2.3.1.nupkg.sha512"
+    }
+  }
+}

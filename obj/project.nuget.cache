@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "lD704cXR7hY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bruis\\Desktop\\Code Study\\e_commerce_project\\PortfolioBackend\\PortfolioBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bruis\\.nuget\\packages\\dotnetenv\\3.1.1\\dotnetenv.3.1.1.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\json.more.net\\2.1.0\\json.more.net.2.1.0.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\jsonpointer.net\\5.1.0\\jsonpointer.net.5.1.0.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\jsonschema.net\\7.3.1\\jsonschema.net.7.3.1.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\jsonschema.net.generation\\5.0.0\\jsonschema.net.generation.5.0.0.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.0-preview.3.25172.1\\microsoft.aspnetcore.openapi.10.0.0-preview.3.25172.1.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\microsoft.openapi\\2.0.0-preview.11\\microsoft.openapi.2.0.0-preview.11.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\mscc.generativeai\\2.6.0\\mscc.generativeai.2.6.0.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
+    "C:\\Users\\bruis\\.nuget\\packages\\sprache\\2.3.1\\sprache.2.3.1.nupkg.sha512"
+  ],
+  "logs": []
+}
