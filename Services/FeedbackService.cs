@@ -1,17 +1,21 @@
 using PortfolioBackend.Models;
+using PortfolioBackend.Contexts;
 
 namespace PortfolioBackend.Services
 {
-    public class FeedbackService : IFeedbackService
+    public class FeedbackService(ApplicationDbContext context) : IFeedbackService
     {
+        private readonly ApplicationDbContext _context = context;
+
         public IEnumerable<Feedbacks>? GetFeedbacks()
         {
-            throw new NotImplementedException();
+            return _context.Feedbacks.ToList();
         }
 
         public void SendFeedback(Feedbacks feedback)
         {
-            throw new NotImplementedException();
+            _context.Feedbacks.Add(feedback);
+            _context.SaveChanges();
         }
     }
 }
