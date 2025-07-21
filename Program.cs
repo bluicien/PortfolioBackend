@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using PortfolioBackend.Contexts;
 using PortfolioBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Configuration
     .AddEnvironmentVariables()  // Works for GitHub Action Secrets
     .AddUserSecrets<Program>(); // Works for local development
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Service & Controller Configuration.
 builder.Services.AddControllers(); // Add serves to container.

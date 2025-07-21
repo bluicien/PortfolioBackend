@@ -4,12 +4,12 @@ namespace PortfolioBackend.Services
 {
     public class FeedbackService : IFeedbackService
     {
-        public IEnumerable<Feedback>? GetFeedback()
+        public IEnumerable<Feedbacks>? GetFeedbacks()
         {
             throw new NotImplementedException();
         }
 
-        public void SendFeedBack(Feedback feedback)
+        public void SendFeedback(Feedbacks feedback)
         {
             throw new NotImplementedException();
         }
