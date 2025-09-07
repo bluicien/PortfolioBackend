@@ -11,6 +11,6 @@ namespace PortfolioBackend.Contexts
         public DbSet<Products> Products { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<Conversations> Conversations { get; set; }
-        public DbSet<Feedbacks> Feedbacks { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
     }
 }

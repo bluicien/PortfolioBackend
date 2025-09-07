@@ -4,8 +4,8 @@ namespace PortfolioBackend.Services
 {
     public interface IFeedbackService
     {
-        IEnumerable<Feedbacks>? GetFeedbacks();
-        Feedbacks? GetFeedbackById(int id);
-        void SendFeedback(Feedbacks feedbacks);
+        Task<IEnumerable<Feedback>> GetFeedbacksAsync();
+        Task<Feedback?> GetFeedbackByIdAsync(string id, string partitionKey);
+        Task SendFeedbackAsync(Feedback feedback);
     }
 }

@@ -9,34 +9,45 @@ namespace PortfolioBackend.Controllers
     public class FeedbackController : ControllerBase
     {
         private readonly IFeedbackService _feedbackService;
+
         public FeedbackController(IFeedbackService feedbackService)
         {
             _feedbackService = feedbackService;
         }
 
+        // GET: api/feedback
         [HttpGet]
-        public IActionResult GetFeedbacks()
+        public async Task<IActionResult> GetFeedbacks()
         {
-            Feedbacks[] feedbacks = _feedbackService.GetFeedbacks()?.ToArray() ?? [];
-            if (feedbacks.Length == 0) return NotFound("No feedback found.");
+            var feedbacks = await _feedbackService.GetFeedbacksAsync();
+            if (!feedbacks.Any())
+                return NotFound("No feedback found.");
+
             return Ok(feedbacks);
         }
 
+        // GET: api/feedback/{id}?partitionKey=xyz
         [HttpGet("{id}")]
-        public IActionResult GetFeedbackById(int id)
+        public async Task<IActionResult> GetFeedbackById(string id, [FromQuery] string partitionKey = "default")
         {
-            Feedbacks? feedback = _feedbackService.GetFeedbackById(id);
-            if (feedback == null) return NotFound($"No feedback of ID {id} found.");
+            var feedback = await _feedbackService.GetFeedbackByIdAsync(id, partitionKey);
+            if (feedback == null)
+                return NotFound($"No feedback with ID '{id}' found.");
 
             return Ok(feedback);
         }
 
+        // POST: api/feedback
         [HttpPost]
-        public IActionResult SendFeedback([FromBody] Feedbacks feedback)
+        public async Task<IActionResult> SendFeedback([FromBody] Feedback feedback)
         {
-            if (feedback == null) return BadRequest("Request must contain feedback object.");
-            _feedbackService.SendFeedback(feedback);
-            return StatusCode(201, feedback);
+            if (feedback == null)
+                return BadRequest("Request must contain a feedback object.");
+
+            feedback.UserId = feedback.Username ?? "default";
+            await _feedbackService.SendFeedbackAsync(feedback);
+
+            return CreatedAtAction(nameof(GetFeedbackById), new { id = feedback.Id, partitionKey = feedback.UserId }, feedback);
         }
     }
 }

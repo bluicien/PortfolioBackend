@@ -1,26 +1,51 @@
+using Microsoft.Azure.Cosmos;
 using PortfolioBackend.Models;
-using PortfolioBackend.Contexts;
 
 namespace PortfolioBackend.Services
 {
-    public class FeedbackService(ApplicationDbContext context) : IFeedbackService
+    public class FeedbackService : IFeedbackService
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly Container _container;
 
-        public Feedbacks? GetFeedbackById(int id)
+        public FeedbackService(CosmosDbService cosmosDbService)
         {
-            return _context.Feedbacks.FirstOrDefault(feedback => feedback.FeedbackId == id);
+            _container = cosmosDbService.GetContainer("Feedbacks");
         }
 
-        public IEnumerable<Feedbacks>? GetFeedbacks()
+        public async Task<Feedback?> GetFeedbackByIdAsync(string id, string partitionKey)
         {
-            return _context.Feedbacks.ToList();
+            try
+            {
+                var response = await _container.ReadItemAsync<Feedback>(id, new PartitionKey(partitionKey));
+                return response.Resource;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
         }
 
-        public void SendFeedback(Feedbacks feedback)
+        public async Task<IEnumerable<Feedback>> GetFeedbacksAsync()
         {
-            _context.Feedbacks.Add(feedback);
-            _context.SaveChanges();
+            var query = _container.GetItemQueryIterator<Feedback>(
+                new QueryDefinition("SELECT * FROM c"));
+
+            var results = new List<Feedback>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ReadNextAsync();
+                results.AddRange(response);
+            }
+
+            return results;
+        }
+
+        public async Task SendFeedbackAsync(Feedback feedback)
+        {
+            feedback.Id ??= Guid.NewGuid().ToString();
+            feedback.SubmittedAt = DateTime.UtcNow;
+            
+            await _container.CreateItemAsync(feedback, new PartitionKey(feedback.UserId));
         }
     }
 }
