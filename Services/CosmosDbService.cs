@@ -14,7 +14,8 @@ public class CosmosDbService
             { "Feedbacks", "/userId" },
             { "Conversations", "/sessionId" },
             { "Products", "/productType" },
-            { "Users", "/userId" }
+            { "Users", "/userId" },
+            { "Messages", "/conversationId" }
         };
 
         public CosmosDbService(IConfiguration config)

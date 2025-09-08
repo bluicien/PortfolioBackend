@@ -1,12 +1,19 @@
-using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace PortfolioBackend.Models
 {
     public class Messages
     {
-        [Key]
-        public int MessageId { get; set; }
-        public int ConversationId { get; set; }
-        public required Conversations Conversation { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+
+        [JsonProperty("userId")]
+        public required string UserId { get; set; }
+
+        [JsonProperty("conversationId")]
+        public required string ConversationId { get; set; } // Partition Key
+
+        [JsonProperty("createdAt")]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

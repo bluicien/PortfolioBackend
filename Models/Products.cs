@@ -1,13 +1,25 @@
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace PortfolioBackend.Models
 {
     public class Products
     {
-        public int Id { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+
+        [JsonProperty("productName")]
         public string ProductName { get; set; } = string.Empty;
 
-        [Precision(18, 2)] // 18 total digits, 2 after the decimal
+        [JsonProperty("productType")]
+        public string ProductType { get; set; } = String.Empty; // Partition Key
+
+        [JsonProperty("price")]
         public decimal Price { get; set; }
+
+        [JsonProperty("updatedAt")]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [JsonProperty("createdAt")]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

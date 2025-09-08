@@ -44,10 +44,9 @@ namespace PortfolioBackend.Controllers
             if (feedback == null)
                 return BadRequest("Request must contain a feedback object.");
 
-            feedback.UserId = feedback.Username ?? "default";
             await _feedbackService.SendFeedbackAsync(feedback);
 
-            return CreatedAtAction(nameof(GetFeedbackById), new { id = feedback.Id, partitionKey = feedback.UserId }, feedback);
+            return CreatedAtAction(nameof(GetFeedbackById), new { id = feedback.Id, partitionKey = feedback.Username }, feedback);
         }
     }
 }

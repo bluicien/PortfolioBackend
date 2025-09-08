@@ -43,9 +43,10 @@ namespace PortfolioBackend.Services
         public async Task SendFeedbackAsync(Feedback feedback)
         {
             feedback.Id ??= Guid.NewGuid().ToString();
-            feedback.SubmittedAt = DateTime.UtcNow;
-            
-            await _container.CreateItemAsync(feedback, new PartitionKey(feedback.UserId));
+            feedback.CreatedAt = DateTime.UtcNow;
+
+            await _container.CreateItemAsync(feedback, new PartitionKey(feedback.Username));
         }
     }
+    
 }
