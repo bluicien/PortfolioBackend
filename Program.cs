@@ -35,7 +35,9 @@ builder.Services.AddScoped<IConversationService, ConversationService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
 // 📘 OpenAPI / Swagger
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -44,7 +46,9 @@ app.UseCors("DynamicCorsPolicy");
 // 🚀 Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
