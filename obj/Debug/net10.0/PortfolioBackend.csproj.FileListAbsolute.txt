@@ -66,3 +66,7 @@ C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\obj\Debug\
 C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\obj\Debug\net10.0\PortfolioBackend.pdb
 C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\obj\Debug\net10.0\PortfolioBackend.genruntimeconfig.cache
 C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\obj\Debug\net10.0\ref\PortfolioBackend.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net10.0\Azure.Identity.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net10.0\Microsoft.Identity.Client.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net10.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll

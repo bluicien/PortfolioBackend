@@ -1,4 +1,5 @@
 using Microsoft.Azure.Cosmos;
+using Azure.Identity;
 
 namespace PortfolioBackend.Services
 {
@@ -21,12 +22,24 @@ public class CosmosDbService
         public CosmosDbService(IConfiguration config)
         {
             var endpoint = config["CosmosDb:Endpoint"];
-            var key = config["CosmosDb:Key"];
             var dbName = config["CosmosDb:DatabaseName"];
 
-            _client = new CosmosClient(endpoint, key);
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                // Local dev: use key from config
+                var key = config["CosmosDb:Key"];
+                _client = new CosmosClient(endpoint, key);
+            }
+            else
+            {
+                // Azure: use managed identity
+                var credential = new DefaultAzureCredential();
+                _client = new CosmosClient(endpoint, credential);
+            }
+
             _database = _client.CreateDatabaseIfNotExistsAsync(dbName).Result.Database;
         }
+
 
         public Container GetContainer(string containerName)
         {
