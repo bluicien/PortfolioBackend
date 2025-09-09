@@ -9,9 +9,9 @@ namespace PortfolioBackend.Services
         {
             _products =
             [
-                new Products { Id = 1, ProductName = "Product 1", Price = 10.99m },
-                new Products { Id = 2, ProductName = "Product 2", Price = 20.99m },
-                new Products { Id = 3, ProductName = "Product 3", Price = 30.99m }
+                new Products { Id = "1", ProductName = "Product 1", Price = 10.99m },
+                new Products { Id = "2", ProductName = "Product 2", Price = 20.99m },
+                new Products { Id = "3", ProductName = "Product 3", Price = 30.99m }
             ];
         }
 
@@ -20,13 +20,13 @@ namespace PortfolioBackend.Services
             throw new NotImplementedException();
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(string id)
         {
             Products? product = _products.FirstOrDefault(p => p.Id == id);
             if (product != null) _products.Remove(product);
         }
 
-        public Products? GetProductById(int id)
+        public Products? GetProductById(string id)
         {
             return _products.FirstOrDefault(p => p.Id == id);
         }
@@ -36,7 +36,7 @@ namespace PortfolioBackend.Services
             return _products;
         }
 
-        public void UpdateProduct(int id, Products product)
+        public void UpdateProduct(string id, Products product)
         {
             Products? existingProduct = _products.FirstOrDefault(p => p.Id == id);
             if (existingProduct == null) return;

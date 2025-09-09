@@ -5,9 +5,9 @@ namespace PortfolioBackend.Services
     public interface IProductService
     {
         IEnumerable<Products>? GetProducts();
-        Products? GetProductById(int id);
+        Products? GetProductById(string id);
         void CreateProduct(Products product);
-        void UpdateProduct(int id, Products product);
-        void DeleteProduct(int id);
+        void UpdateProduct(string id, Products product);
+        void DeleteProduct(string id);
     }
 }
