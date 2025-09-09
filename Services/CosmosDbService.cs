@@ -13,10 +13,10 @@ public class CosmosDbService
         private readonly Dictionary<string, string> _partitionKeyMap = new()
         {
             { "Feedbacks", "/userId" },
-            { "Conversations", "/sessionId" },
+            { "Conversations", "/userId" },
             { "Products", "/productType" },
             { "Users", "/userId" },
-            { "Messages", "/conversationId" }
+            { "Messages", "/userId" }
         };
 
         public CosmosDbService(IConfiguration config)
