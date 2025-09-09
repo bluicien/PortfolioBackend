@@ -5,14 +5,15 @@ namespace PortfolioBackend.Services
 {
 public class CosmosDbService
     {
-        private readonly CosmosClient _client;
-        private readonly Database _database;
+        private readonly IConfiguration _config;
+        private CosmosClient? _client;
+        private Database? _database;
         private readonly Dictionary<string, Container> _containerCache = new();
 
         // Optional: map container names to partition key paths
         private readonly Dictionary<string, string> _partitionKeyMap = new()
         {
-            { "Feedbacks", "/userId" },
+            { "Feedbacks", "/username" },
             { "Conversations", "/userId" },
             { "Products", "/productType" },
             { "Users", "/userId" },
@@ -21,42 +22,34 @@ public class CosmosDbService
 
         public CosmosDbService(IConfiguration config)
         {
-            var endpoint = config["CosmosDb:Endpoint"];
-            var dbName = config["CosmosDb:DatabaseName"];
-
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {
-                // Local dev: use key from config
-                var key = config["CosmosDb:Key"];
-                _client = new CosmosClient(endpoint, key);
-            }
-            else
-            {
-                // Azure: use managed identity
-                var credential = new DefaultAzureCredential();
-                _client = new CosmosClient(endpoint, credential);
-            }
-
-            _database = _client.CreateDatabaseIfNotExistsAsync(dbName).Result.Database;
+            _config = config;
         }
 
+        public async Task InitializeAsync()
+        {
+            var endpoint = _config["CosmosDb:Endpoint"];
+            var dbName = _config["CosmosDb:DatabaseName"];
+
+            _client = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+                ? new CosmosClient(endpoint, _config["CosmosDb:Key"])
+                : new CosmosClient(endpoint, new DefaultAzureCredential());
+
+            var response = await _client.CreateDatabaseIfNotExistsAsync(dbName);
+            _database = response.Database;
+
+            foreach (var kvp in _partitionKeyMap)
+            {
+                var containerResponse = await _database.CreateContainerIfNotExistsAsync(kvp.Key, kvp.Value);
+                _containerCache[kvp.Key] = containerResponse.Container;
+            }
+        }
 
         public Container GetContainer(string containerName)
         {
-            if (_containerCache.ContainsKey(containerName))
-                return _containerCache[containerName];
+            if (_containerCache.TryGetValue(containerName, out var container))
+                return container;
 
-            var partitionKeyPath = _partitionKeyMap.ContainsKey(containerName)
-                ? _partitionKeyMap[containerName]
-                : "/partitionKey"; // fallback default
-
-            var container = _database
-                .CreateContainerIfNotExistsAsync(containerName, partitionKeyPath)
-                .Result
-                .Container;
-
-            _containerCache[containerName] = container;
-            return container;
+            throw new InvalidOperationException($"Container '{containerName}' not initialized.");
         }
     }
 }
