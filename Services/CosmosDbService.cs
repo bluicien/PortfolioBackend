@@ -27,8 +27,8 @@ public class CosmosDbService
 
         public async Task InitializeAsync()
         {
-            var endpoint = _config["CosmosDb:Endpoint"];
-            var dbName = _config["CosmosDb:DatabaseName"];
+            var endpoint = _config["COSMOS_DB_ENDPOINT"];
+            var dbName = _config["COSMOS_DB_DATABASE_NAME"];
 
             _client = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
                 ? new CosmosClient(endpoint, _config["CosmosDb:Key"])
