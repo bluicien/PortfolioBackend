@@ -23,7 +23,7 @@ namespace PortfolioBackend.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProductById(int id)
+        public IActionResult GetProductById(string id)
         {
             Products? products = _productService.GetProductById(id);
             if (products == null) return NotFound($"Product with ID {id} not found.");
@@ -39,7 +39,7 @@ namespace PortfolioBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateProduct(int id, [FromBody] Products product)
+        public IActionResult UpdateProduct(string id, [FromBody] Products product)
         {
             if (product == null) return BadRequest("Product cannot be null.");
             _productService.UpdateProduct(id, product);
@@ -47,7 +47,7 @@ namespace PortfolioBackend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(int id)
+        public IActionResult DeleteProduct(string id)
         {
             _productService.DeleteProduct(id);
             return NoContent();
