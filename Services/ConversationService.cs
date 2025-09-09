@@ -1,36 +1,51 @@
-using Mscc.GenerativeAI;
+using Microsoft.Azure.Cosmos;
 using PortfolioBackend.Models;
 
 namespace PortfolioBackend.Services
 {
     public class ConversationService : IConversationService
     {
-        private readonly GenerativeModel _gemini;
+        private readonly Container _container;
 
-        public ConversationService(IConfiguration configuration)
+        public ConversationService(CosmosDbService cosmosDbService)
         {
-            string apiKey;
-            apiKey = configuration["GoogleGeminiApiKey"]
-                ?? throw new InvalidOperationException("API key is missing!");
-
-            GoogleAI googleAI = new(apiKey);
-            _gemini = googleAI.GenerativeModel(model: Model.Gemini20Flash);
+            _container = cosmosDbService.GetContainer("Conversations");
         }
 
-        public async Task<string> GetGeneratedTextAsync(string prompt)
+        public async Task<IEnumerable<Messages>> GetMessages(string conversationId, string userId)
         {
-            var response = await _gemini.GenerateContent(prompt);
-            return response.Text ?? "No Response";
+            try
+            {
+                var query = _container.GetItemQueryIterator<Messages>(
+                    new QueryDefinition("SELECT * FROM c WHERE c.conversationId = @conversationId")
+                    .WithParameter("@conversationId", conversationId),
+                    requestOptions: new QueryRequestOptions
+                    {
+                        PartitionKey = new PartitionKey(userId)
+                    }
+                );
+
+                var results = new List<Messages>();
+                while (query.HasMoreResults)
+                {
+                    var response = await query.ReadNextAsync();
+                    results.AddRange(response);
+                }
+
+                return results;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return [];
+            }
         }
 
-        public IEnumerable<Messages> GetMessages(int conversationId)
+        public async Task SendMessage(Messages message)
         {
-            throw new NotImplementedException();
-        }
+            message.Id ??= Guid.NewGuid().ToString();
+            message.CreatedAt = DateTime.UtcNow;
 
-        public Conversations SendMessage(Messages message)
-        {
-            throw new NotImplementedException();
+            await _container.CreateItemAsync(message, new PartitionKey(message.UserId));
         }
     }
 }

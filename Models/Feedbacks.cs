@@ -8,7 +8,7 @@ namespace PortfolioBackend.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [JsonProperty("username")]
-        public string Username { get; set; } = "Anonymous"; // Partition Key
+        public string Username { get; set; } = "anonymous"; // Partition Key
 
         [JsonProperty("companyRole")]
         public string? CompanyRole { get; set; }

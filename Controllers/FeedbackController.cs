@@ -28,7 +28,7 @@ namespace PortfolioBackend.Controllers
 
         // GET: api/feedback/{id}?partitionKey=xyz
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetFeedbackById(string id, [FromQuery] string partitionKey = "default")
+        public async Task<IActionResult> GetFeedbackById(string id, [FromQuery] string partitionKey = "anonymous")
         {
             var feedback = await _feedbackService.GetFeedbackByIdAsync(id, partitionKey);
             if (feedback == null)
