@@ -2,6 +2,22 @@ using PortfolioBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Read from environment
+var allowedOriginsRaw = builder.Configuration["Cors:AllowedOrigins"];
+var allowedOrigins = allowedOriginsRaw?.Split(';', StringSplitOptions.RemoveEmptyEntries) ?? [];
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DynamicCorsPolicy", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
+
 // 🌱 Environment & Secret Configuration
 builder.Configuration
     .AddEnvironmentVariables()  // For GitHub Action Secrets
@@ -11,10 +27,6 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // 🧠 Cosmos DB Service Registration
 builder.Services.AddSingleton<CosmosDbService>();
-
-// 🧹 Remove EF Core setup
-// builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // 🛠️ Service & Controller Configuration
 builder.Services.AddControllers();
@@ -26,6 +38,8 @@ builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseCors("DynamicCorsPolicy");
 
 // 🚀 Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
