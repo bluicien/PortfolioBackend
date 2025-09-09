@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PortfolioBackend.Models;
 using PortfolioBackend.Services;
 
 
@@ -16,10 +17,17 @@ namespace PortfolioBackend.Controllers
         }
 
         [HttpPost("send-message")]
-        public async Task<IActionResult> GetResponseMessage([FromBody] string prompt)
+        public async Task<IActionResult> GetResponseMessage([FromBody] Messages message)
         {
-            var result = await _conversationService.GetGeneratedTextAsync(prompt);
-            return Ok(result);
+            try
+            {
+                await _conversationService.SendMessage(message);
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }
