@@ -29,6 +29,10 @@ public class CosmosDbService
         {
             try
             {
+                Console.WriteLine("Starting Cosmos DB initialization...");
+                Console.WriteLine($"END POINT: {_config["COSMOS_DB_ENDPOINT"]}");
+                Console.WriteLine($"DB NAME: {_config["COSMOS_DB_DATABASE_NAME"]}");
+
                 var endpoint = _config["COSMOS_DB_ENDPOINT"] ?? throw new InvalidOperationException("Missing endpoint");
                 var dbName = _config["COSMOS_DB_DATABASE_NAME"] ?? throw new InvalidOperationException("Missing database name");
 
