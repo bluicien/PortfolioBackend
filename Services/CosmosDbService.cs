@@ -20,9 +20,9 @@ namespace PortfolioBackend.Services
         {
             { "Feedbacks", "/username" },
             { "Conversations", "/userId" },
-            { "Products", "/productType" },
-            { "Users", "/userId" },
-            { "Messages", "/userId" }
+            // { "Products", "/productType" },
+            // { "Users", "/userId" },
+            // { "Messages", "/userId" }
         };
 
         public CosmosDbService(IConfiguration config)
@@ -78,7 +78,7 @@ namespace PortfolioBackend.Services
                 };
                 var containerData = new CosmosDBSqlContainerResourceInfo(containerId)
                 {
-                    PartitionKey = pk
+                    PartitionKey = pk,
                 };
 
                 var containerContent = new CosmosDBSqlContainerCreateOrUpdateContent(
