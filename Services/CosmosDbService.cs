@@ -27,20 +27,28 @@ public class CosmosDbService
 
         public async Task InitializeAsync()
         {
-            var endpoint = _config["COSMOS_DB_ENDPOINT"];
-            var dbName = _config["COSMOS_DB_DATABASE_NAME"];
-
-            _client = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
-                ? new CosmosClient(endpoint, _config["CosmosDb:Key"])
-                : new CosmosClient(endpoint, new DefaultAzureCredential());
-
-            var response = await _client.CreateDatabaseIfNotExistsAsync(dbName);
-            _database = response.Database;
-
-            foreach (var kvp in _partitionKeyMap)
+            try
             {
-                var containerResponse = await _database.CreateContainerIfNotExistsAsync(kvp.Key, kvp.Value);
-                _containerCache[kvp.Key] = containerResponse.Container;
+                var endpoint = _config["COSMOS_DB_ENDPOINT"] ?? throw new InvalidOperationException("Missing endpoint");
+                var dbName = _config["COSMOS_DB_DATABASE_NAME"] ?? throw new InvalidOperationException("Missing database name");
+
+                _client = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+                    ? new CosmosClient(endpoint, _config["CosmosDb:Key"])
+                    : new CosmosClient(endpoint, new DefaultAzureCredential());
+
+                var response = await _client.CreateDatabaseIfNotExistsAsync(dbName);
+                _database = response.Database;
+
+                foreach (var kvp in _partitionKeyMap)
+                {
+                    var containerResponse = await _database.CreateContainerIfNotExistsAsync(kvp.Key, kvp.Value);
+                    _containerCache[kvp.Key] = containerResponse.Container;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Cosmos DB initialization failed: {ex.Message}");
+                throw;
             }
         }
 
