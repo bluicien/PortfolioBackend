@@ -31,6 +31,7 @@ try
     var cosmosDbService = new CosmosDbService(builder.Configuration);
     await cosmosDbService.InitializeAsync();
     builder.Services.AddSingleton(cosmosDbService);
+    Console.WriteLine("CosmosDbService initialized and registered.");
 }
 catch (Exception ex)
 {

@@ -38,6 +38,41 @@
           }
         }
       },
+      "Azure.ResourceManager/1.11.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.38.0",
+          "System.ClientModel": "1.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.ResourceManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.ResourceManager.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager.CosmosDB/1.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.38.0",
+          "Azure.ResourceManager": "1.11.0",
+          "System.ClientModel": "1.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.ResourceManager.CosmosDB.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.ResourceManager.CosmosDB.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DotNetEnv/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -567,6 +602,38 @@
         "lib/net8.0/Azure.Identity.xml",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Azure.ResourceManager/1.11.0": {
+      "sha512": "kDgY6jw1LMqQJXO9H+Q6huZiKU1Ctt79wjNDu3etEob/NlOGGCNuQX5tyTm+iOZh17XMFKmTY7c+bT3bYu5uVw==",
+      "type": "package",
+      "path": "azure.resourcemanager/1.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.1.11.0.nupkg.sha512",
+        "azure.resourcemanager.nuspec",
+        "azureicon.png",
+        "lib/netstandard2.0/Azure.ResourceManager.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.xml"
+      ]
+    },
+    "Azure.ResourceManager.CosmosDB/1.3.2": {
+      "sha512": "DKad8BMQwd+nyLbipm0q4zUSic2xmKsUXPzcZNuSKmsTM9+0KdXdv0GmEFehb8/Ip7+mkfzItck0d41s/I7cAw==",
+      "type": "package",
+      "path": "azure.resourcemanager.cosmosdb/1.3.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.cosmosdb.1.3.2.nupkg.sha512",
+        "azure.resourcemanager.cosmosdb.nuspec",
+        "azureicon.png",
+        "lib/netstandard2.0/Azure.ResourceManager.CosmosDB.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.CosmosDB.xml"
       ]
     },
     "DotNetEnv/3.1.1": {
@@ -1318,6 +1385,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Azure.Identity >= 1.15.0",
+      "Azure.ResourceManager.CosmosDB >= 1.3.2",
       "DotNetEnv >= 3.1.1",
       "Microsoft.Azure.Cosmos >= 3.53.1",
       "Newtonsoft.Json >= 13.0.3",
@@ -1378,6 +1446,10 @@
           "Azure.Identity": {
             "target": "Package",
             "version": "[1.15.0, )"
+          },
+          "Azure.ResourceManager.CosmosDB": {
+            "target": "Package",
+            "version": "[1.3.2, )"
           },
           "DotNetEnv": {
             "target": "Package",

@@ -55,6 +55,10 @@
               "target": "Package",
               "version": "[1.15.0, )"
             },
+            "Azure.ResourceManager.CosmosDB": {
+              "target": "Package",
+              "version": "[1.3.2, )"
+            },
             "DotNetEnv": {
               "target": "Package",
               "version": "[3.1.1, )"
