@@ -26,7 +26,9 @@ builder.Configuration
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // 🧠 Cosmos DB Service Registration
-builder.Services.AddSingleton<CosmosDbService>();
+var cosmosDbService = new CosmosDbService(builder.Configuration);
+await cosmosDbService.InitializeAsync();
+builder.Services.AddSingleton(cosmosDbService);
 
 // 🛠️ Service & Controller Configuration
 builder.Services.AddControllers();
