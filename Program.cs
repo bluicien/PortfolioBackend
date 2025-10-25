@@ -1,68 +1,30 @@
-using PortfolioBackend.Services;
+using Microsoft.EntityFrameworkCore;
+using PortoflioBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Read from environment
-var allowedOriginsRaw = builder.Configuration["Cors:AllowedOrigins"];
-var allowedOrigins = allowedOriginsRaw?.Split(';', StringSplitOptions.RemoveEmptyEntries) ?? [];
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("DynamicCorsPolicy", policy =>
-    {
-        policy.WithOrigins(allowedOrigins)
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
-
-
-// 🌱 Environment & Secret Configuration
-builder.Configuration
-    .AddEnvironmentVariables()  // For GitHub Action Secrets
-    .AddUserSecrets<Program>(); // For local development
-
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-
-// 🧠 Cosmos DB Service Registration
-try
-{
-    var cosmosDbService = new CosmosDbService(builder.Configuration);
-    await cosmosDbService.InitializeAsync();
-    builder.Services.AddSingleton(cosmosDbService);
-    Console.WriteLine("CosmosDbService initialized and registered.");
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Startup failure: {ex.Message}");
-    throw;
-}
-
-// 🛠️ Service & Controller Configuration
+// Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IConversationService, ConversationService>();
-builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
-// 📘 OpenAPI / Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
 
+// Add DbContext using SQL Server Provider
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+));
 
 var app = builder.Build();
 
-app.UseCors("DynamicCorsPolicy");
-
-// 🚀 Configure the HTTP request pipeline
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
 app.MapControllers();
 
 app.Run();

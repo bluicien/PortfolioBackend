@@ -1,52 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
-using PortfolioBackend.Models;
-using PortfolioBackend.Services;
+using PortoflioBackend.Data;
+using PortoflioBackend.Models;
 
-namespace PortfolioBackend.Controllers
+namespace PortoflioBackend.Controller;
+
+[Route("api/[controller]")]
+[ApiController]
+public class FeedbackController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class FeedbackController : ControllerBase
+    private readonly ILogger<FeedbackController> _logger;
+    private readonly AppDbContext _dbContext;
+
+    public FeedbackController(ILogger<FeedbackController> logger, AppDbContext dbContext)
     {
-        private readonly IFeedbackService _feedbackService;
+        _logger = logger;
+        _dbContext = dbContext;
+    }
 
-        public FeedbackController(IFeedbackService feedbackService)
+    [HttpGet]
+    public IEnumerable<Feedback> Feedback()
+    {
+        var dbFeedback = _dbContext.Feedback.ToList();
+        if (dbFeedback != null && dbFeedback.Count > 0)
         {
-            _feedbackService = feedbackService;
+            return dbFeedback;
         }
 
-        // GET: api/feedback
-        [HttpGet]
-        public async Task<IActionResult> GetFeedbacks()
-        {
-            var feedbacks = await _feedbackService.GetFeedbacksAsync();
-            if (!feedbacks.Any())
-                return NotFound("No feedback found.");
-
-            return Ok(feedbacks);
-        }
-
-        // GET: api/feedback/{id}?partitionKey=xyz
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetFeedbackById(string id, [FromQuery] string partitionKey = "anonymous")
-        {
-            var feedback = await _feedbackService.GetFeedbackByIdAsync(id, partitionKey);
-            if (feedback == null)
-                return NotFound($"No feedback with ID '{id}' found.");
-
-            return Ok(feedback);
-        }
-
-        // POST: api/feedback
-        [HttpPost]
-        public async Task<IActionResult> SendFeedback([FromBody] Feedback feedback)
-        {
-            if (feedback == null)
-                return BadRequest("Request must contain a feedback object.");
-
-            await _feedbackService.SendFeedbackAsync(feedback);
-
-            return CreatedAtAction(nameof(GetFeedbackById), new { id = feedback.Id, partitionKey = feedback.Username }, feedback);
-        }
+        throw new Exception("Unable to fetch data");
     }
 }
