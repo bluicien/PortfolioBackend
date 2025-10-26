@@ -25,7 +25,7 @@ public class MailServiceHelper
 
         UriBuilder uriBuilder = new(_settings.ServerUrl)
         {
-            Path = $"{_settings.ServerUrl}/api/feedback/approve",
+            Path = "/api/feedback/approve",
             Query = $"token={Uri.EscapeDataString(encryptedToken)}"
         };
         string approvalLink = uriBuilder.ToString();
