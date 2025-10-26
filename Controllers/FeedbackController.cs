@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PortfolioBackend.Utils;
 using PortoflioBackend.Data;
 using PortoflioBackend.Models;
 
@@ -11,11 +11,13 @@ public class FeedbackController : ControllerBase
 {
     private readonly ILogger<FeedbackController> _logger;
     private readonly AppDbContext _dbContext;
+    private readonly MailServiceHelper _mailHelper;
 
-    public FeedbackController(ILogger<FeedbackController> logger, AppDbContext dbContext)
+    public FeedbackController(ILogger<FeedbackController> logger, AppDbContext dbContext, MailServiceHelper mailHelper)
     {
         _logger = logger;
         _dbContext = dbContext;
+        _mailHelper = mailHelper;
     }
 
 
@@ -86,6 +88,8 @@ public class FeedbackController : ControllerBase
             if (rowsAffected > 0)
             {
                 Console.WriteLine("Save successful!");
+                await _mailHelper.SendApprovalEmailAsync(newFeedback);
+
                 return CreatedAtAction(nameof(GetFeedbackById), new { id = newFeedback.UserId }, newFeedback);
             }
             else

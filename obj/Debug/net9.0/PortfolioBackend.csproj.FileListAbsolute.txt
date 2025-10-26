@@ -162,3 +162,7 @@ C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\
 C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\Resend.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\SendGrid.dll
+C:\Users\bruis\Desktop\Code Study\e_commerce_project\PortfolioBackend\bin\Debug\net9.0\StarkbankEcdsa.dll

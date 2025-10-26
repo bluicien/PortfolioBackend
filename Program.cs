@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using PortfolioBackend.Config;
+using PortfolioBackend.Utils;
 using PortoflioBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,14 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
+builder.Configuration.AddUserSecrets<Program>();
+builder.Services.AddDataProtection();
+builder.Services.AddScoped<MailServiceHelper>();
+
+builder.Services.AddOptions<AppSettings>()
+    .Bind(builder.Configuration.GetSection("AppSettings"))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
 var app = builder.Build();
 
