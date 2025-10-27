@@ -24,6 +24,16 @@ builder.Services.AddOptions<AppSettings>()
     .ValidateDataAnnotations()
     .ValidateOnStart();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowClientSide", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +45,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+app.UseCors("AllowClientSide");
 app.MapControllers();
 
 app.Run();
