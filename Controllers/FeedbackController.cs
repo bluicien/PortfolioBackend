@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PortfolioBackend.Utils;
 using PortoflioBackend.Data;
 using PortoflioBackend.Models;
@@ -22,26 +23,24 @@ public class FeedbackController : ControllerBase
 
 
     [HttpGet]
-    public ActionResult<List<Feedback>> GetFeedbacks()
+    public async Task<ActionResult<List<Feedback>>> GetFeedbacks()
     {
-        List<Feedback> dbFeedback = [.. _dbContext.Feedback];
-
         try
         {
+            var dbFeedback = await _dbContext.Feedback.ToListAsync();
+
             if (dbFeedback != null && dbFeedback.Count > 0)
             {
-                Console.WriteLine("Returning feedback...");
+                _logger.LogInformation("Returning {Count} feedback entries.", dbFeedback.Count);
                 return dbFeedback;
             }
-            else
-            {
-                Console.WriteLine("No feedback found.");
-                return NotFound();
-            }
+
+            _logger.LogInformation("No feedback found.");
+            return NotFound();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            _logger.LogError(ex, "Error while retrieving feedback list.");
             return Problem(
                 detail: ex.Message,
                 title: "An internal server error has occurred"
@@ -55,20 +54,19 @@ public class FeedbackController : ControllerBase
     {
         try
         {
-            Feedback? feedback = _dbContext.Feedback.Where(f => f.FeedbackId == id).FirstOrDefault();
+            Feedback? feedback = await _dbContext.Feedback.FirstOrDefaultAsync(f => f.FeedbackId == id);
 
             if (feedback != null)
             {
                 return feedback;
             }
-            else
-            {
-                Console.WriteLine($"No feedback found with ID: {id}");
-                return NotFound();
-            }
+
+            _logger.LogInformation("No feedback found with ID: {Id}", id);
+            return NotFound();
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error while retrieving feedback with ID {Id}.", id);
             return Problem(
                 detail: ex.Message,
                 title: "An internal server error has occurred"
@@ -132,7 +130,7 @@ public class FeedbackController : ControllerBase
 
             if (rowsAffected > 0)
             {
-                Console.WriteLine("Save successful!");
+                _logger.LogInformation("Feedback saved (ID: {Id}).", newFeedback.FeedbackId);
                 await _mailHelper.SendApprovalEmailAsync(newFeedback);
 
                 return CreatedAtAction(nameof(GetFeedbackById), new { id = newFeedback.FeedbackId }, newFeedback);
@@ -141,13 +139,13 @@ public class FeedbackController : ControllerBase
             {
                 if (!ModelState.IsValid)
                 {
-                    Console.WriteLine("Bad Request, failed to create");
+                    _logger.LogInformation("Bad request when creating feedback.");
                     return BadRequest(ModelState);
                 }
                 else
                 {
                     string errorMessage = "Failed to add feedback";
-                    Console.WriteLine(errorMessage);
+                    _logger.LogError(errorMessage);
                     throw new Exception(errorMessage);
                 }
             }
