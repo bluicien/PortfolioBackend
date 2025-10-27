@@ -19,7 +19,7 @@ public class MailServiceHelper
 
     public async Task SendApprovalEmailAsync(Feedback feedback)
     {
-        string feedbackId = feedback.UserId.ToString();
+        string feedbackId = feedback.FeedbackId.ToString();
 
         string encryptedToken = _protector.Protect(feedbackId);
 

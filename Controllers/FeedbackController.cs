@@ -55,7 +55,7 @@ public class FeedbackController : ControllerBase
     {
         try
         {
-            Feedback? feedback = _dbContext.Feedback.Where(f => f.UserId == id).FirstOrDefault();
+            Feedback? feedback = _dbContext.Feedback.Where(f => f.FeedbackId == id).FirstOrDefault();
 
             if (feedback != null)
             {
@@ -135,7 +135,7 @@ public class FeedbackController : ControllerBase
                 Console.WriteLine("Save successful!");
                 await _mailHelper.SendApprovalEmailAsync(newFeedback);
 
-                return CreatedAtAction(nameof(GetFeedbackById), new { id = newFeedback.UserId }, newFeedback);
+                return CreatedAtAction(nameof(GetFeedbackById), new { id = newFeedback.FeedbackId }, newFeedback);
             }
             else
             {

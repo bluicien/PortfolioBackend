@@ -24,11 +24,15 @@ builder.Services.AddOptions<AppSettings>()
     .ValidateDataAnnotations()
     .ValidateOnStart();
 
+string? frontendOrigin = builder.Configuration["FRONTEND_ORIGIN"];
+if (string.IsNullOrWhiteSpace(frontendOrigin))
+    throw new InvalidOperationException("FRONTEND_ORIGIN is not set.");
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowClientSide", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(frontendOrigin)
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
