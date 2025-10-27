@@ -5,17 +5,35 @@ using PortoflioBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Only load user secrets in Development (they are not used in production)
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+
 // Add services to the container.
 builder.Services.AddControllers();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
-// Add DbContext using SQL Server Provider
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")
-));
-builder.Configuration.AddUserSecrets<Program>();
+builder.Services.AddDbContext<AppDbContext>(options => 
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    }
+    
+    // In production we avoid writing to Console. Use ILogger for structured logging if needed.
+    
+    options.UseSqlServer(connectionString, sqlOptions => 
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    });
+});
 builder.Services.AddDataProtection();
 builder.Services.AddScoped<MailServiceHelper>();
 
