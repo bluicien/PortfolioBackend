@@ -131,7 +131,16 @@ public class FeedbackController : ControllerBase
             if (rowsAffected > 0)
             {
                 _logger.LogInformation("Feedback saved (ID: {Id}).", newFeedback.FeedbackId);
-                await _mailHelper.SendApprovalEmailAsync(newFeedback);
+                _logger.LogInformation("Attempting to send approval email...");
+                try
+                {
+                    await _mailHelper.SendApprovalEmailAsync(newFeedback);
+                }
+                catch (Exception emailEx)
+                {
+                    _logger.LogError(emailEx, "Failed to send approval email.");
+                }
+                _logger.LogInformation("Email sent successfully.");
 
                 return CreatedAtAction(nameof(GetFeedbackById), new { id = newFeedback.FeedbackId }, newFeedback);
             }
