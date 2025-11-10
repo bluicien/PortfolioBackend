@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PortfolioBackend.Utils;
-using PortoflioBackend.Data;
-using PortoflioBackend.Models;
+using PortfolioBackend.Data;
+using PortfolioBackend.Models;
 
-namespace PortoflioBackend.Controller;
+namespace PortfolioBackend.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
