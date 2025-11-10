@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PortoflioBackend.Models;
+namespace PortfolioBackend.Models;
 
 public class Feedback
 {

@@ -27,9 +27,9 @@ public class FeedbackController : ControllerBase
     {
         try
         {
-            var dbFeedback = await _dbContext.Feedback.ToListAsync();
+            var dbFeedback = await _dbContext.Feedback.Where(f => f.IsApproved == true).ToListAsync(); // Retrieve only approved feedbacks.
 
-            if (dbFeedback != null && dbFeedback.Count > 0)
+            if (dbFeedback != null)
             {
                 _logger.LogInformation("Returning {Count} feedback entries.", dbFeedback.Count);
                 return dbFeedback;

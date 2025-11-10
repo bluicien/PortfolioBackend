@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PortoflioBackend.Models;
+using PortfolioBackend.Models;
 
-namespace PortoflioBackend.Data;
+namespace PortfolioBackend.Data;
 
 public class AppDbContext : DbContext
 {

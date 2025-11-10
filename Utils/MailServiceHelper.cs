@@ -2,7 +2,7 @@ using Resend;
 using Microsoft.AspNetCore.DataProtection;
 using PortfolioBackend.Config;
 using Microsoft.Extensions.Options;
-using PortoflioBackend.Models;
+using PortfolioBackend.Models;
 
 
 namespace PortfolioBackend.Utils;

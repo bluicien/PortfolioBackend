@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioBackend.Config;
 using PortfolioBackend.Utils;
-using PortoflioBackend.Data;
+using PortfolioBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
